@@ -16,20 +16,22 @@ namespace DAB.Domain.Entities
 
   public string Description { get; set; }
 
-  //public Dictionary<Ingredient, decimal> BoissonRecette { get; set; }
-
   [Key]
-  public int Id { get; }
-  public ICollection<Ingredient> Ingredients { get; set; }
+  public int Id { get; }  
+
+  public IList<Ingredient> Ingredients { get;set; }
+
+
+  //public ICollection<RecetteIngredient> recetteIngredients { get;set;}
 
   public Recette () { }
 
-  public Recette ( string _name, string _description, ICollection<Ingredient> _ingredients )
+  public Recette ( string _name, string _description )
    {
    this.Name = _name;
    this.Description = _description;
-   this.Ingredients = _ingredients;
    }
+
 
   }
  }

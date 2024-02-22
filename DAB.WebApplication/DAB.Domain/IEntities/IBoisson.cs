@@ -11,10 +11,13 @@ namespace DAB.Domain.IEntities {
  public interface IBoisson
   { 
   int Id { get; }
-  public string Name { get; }
-  public string Description { get; set; }
+   string Name { get; }
+   string Description { get; set; }
 
- public   Recette Recette { get; set; }
+    Recette Recette { get; set; }
+  int? RecetteId { get; set; }
+
+
 
   }
  }

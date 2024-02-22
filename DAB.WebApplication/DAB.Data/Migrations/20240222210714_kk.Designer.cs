@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAB.Data.Migrations
 {
     [DbContext(typeof(DabDbContext))]
-    [Migration("20240219210737_mp")]
-    partial class mp
+    [Migration("20240222210714_kk")]
+    partial class kk
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,6 +32,9 @@ namespace DAB.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("BoissonStock")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -40,12 +43,12 @@ namespace DAB.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RecetteId")
+                    b.Property<int>("RecetteId1")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RecetteId");
+                    b.HasIndex("RecetteId1");
 
                     b.ToTable("Boissons");
                 });
@@ -66,8 +69,8 @@ namespace DAB.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.Property<int?>("RecetteId")
                         .HasColumnType("int");
@@ -100,11 +103,40 @@ namespace DAB.Data.Migrations
                     b.ToTable("Recettes");
                 });
 
+            modelBuilder.Entity("DAB.Domain.Entities.RecetteIngredient", b =>
+                {
+                    b.Property<int>("Ingredient_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Recette_Id")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Dose")
+                        .HasColumnType("float");
+
+                    b.Property<int>("Id_Recette_Ingrediant")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IngredientId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RecetteId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Ingredient_Id", "Recette_Id");
+
+                    b.HasIndex("IngredientId");
+
+                    b.HasIndex("RecetteId");
+
+                    b.ToTable("RecetteIngredients");
+                });
+
             modelBuilder.Entity("DAB.Domain.Entities.Boisson", b =>
                 {
                     b.HasOne("DAB.Domain.Entities.Recette", "Recette")
                         .WithMany()
-                        .HasForeignKey("RecetteId")
+                        .HasForeignKey("RecetteId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -116,6 +148,21 @@ namespace DAB.Data.Migrations
                     b.HasOne("DAB.Domain.Entities.Recette", null)
                         .WithMany("Ingredients")
                         .HasForeignKey("RecetteId");
+                });
+
+            modelBuilder.Entity("DAB.Domain.Entities.RecetteIngredient", b =>
+                {
+                    b.HasOne("DAB.Domain.Entities.Ingredient", "Ingredient")
+                        .WithMany()
+                        .HasForeignKey("IngredientId");
+
+                    b.HasOne("DAB.Domain.Entities.Recette", "Recette")
+                        .WithMany()
+                        .HasForeignKey("RecetteId");
+
+                    b.Navigation("Ingredient");
+
+                    b.Navigation("Recette");
                 });
 
             modelBuilder.Entity("DAB.Domain.Entities.Recette", b =>

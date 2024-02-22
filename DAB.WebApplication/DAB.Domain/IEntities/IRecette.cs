@@ -8,15 +8,14 @@ using System.Threading.Tasks;
 
 namespace DAB.Domain.IEntities
  {
- internal interface IRecette
-  {
-  int  Id { get; }
-  string Name { get; }
+ public interface IRecette
+  { 
+  int Id { get; }
+  string Name { get; set; }
+  IList<Ingredient> Ingredients { get; set; }
 
-  string Description { get; set; }
+ //ICollection<RecetteIngredient> recetteIngredients { get; set; }
 
-  ICollection<Ingredient> Ingredients { get; set; }
-  //Dictionary<Ingredient, decimal> BoissonRecette { get; set; } 
 
   }
  }

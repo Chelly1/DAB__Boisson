@@ -1,26 +1,50 @@
-﻿using DAB.Web.Models;
+﻿//using AutoMapper;
+
+using DAB.Data;
+using DAB.Domain.Entities;
+using DAB.Domain.IEntities;
+using DAB.Service.IRepository;
+using DAB.Web.Models;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 using System.Diagnostics;
 
 namespace DAB.Web.Controllers
  {
  public class HomeController : Controller
-  {
-  private readonly ILogger<HomeController> _logger;
 
-  public HomeController ( ILogger<HomeController> logger )
+  {
+  DabDbContext _dbContext = new DabDbContext();
+
+  private readonly ILogger<HomeController> _logger;
+  private readonly DabDbContext dbContext;
+  IboissonRepo boissonRepo;
+  //private readonly IMapper _mapper;
+
+
+  public HomeController ( ILogger<HomeController> logger, IboissonRepo bookRepo)
    {
    _logger = logger;
+   this.boissonRepo = bookRepo;
+  
    }
 
-  public IActionResult Index ()
+  /// <summary>
+  /// ListBoisson
+  /// </summary>
+  /// <returns></returns>
+  [HttpGet]
+  public ActionResult Index()
    {
-   return View();
+ 
+   List<Boisson> boissons = boissonRepo.FindAllBoisson().ToList();
+   //List<BoissonViewModele> boissonViewModele = _mapper.Map<BoissonViewModele>(boissons);
+   return View(boissons); 
    }
-
-  public IActionResult Privacy ()
+  
+  public IActionResult Privacy ( )
    {
    return View();
    }

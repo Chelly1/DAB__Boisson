@@ -14,10 +14,18 @@ namespace DAB.Domain.Entities
   [Key]
   public int Id { get; }
 
-  public string Name { get; set; }
+  public string Name { get; set; } = "IngrediantName";
 
-  public string Description { get; set; }
+  public string Description { get; set; } = "description";
 
-  public decimal? Price { get; set; }
+  public Double Price { get; set; }
+
+
+
+  //public IList<RecetteIngredient> recetteIngredients { get; set; }
+
+
+
+  //public  IList<> RecettesIngrediant { get; set; }
   }
  }
