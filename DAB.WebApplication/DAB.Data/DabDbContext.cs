@@ -16,9 +16,8 @@ namespace DAB.Data
  public class DabDbContext : DbContext
   {
 
-  public DabDbContext ( DbContextOptions<DabDbContext> options ) : base( options ) { }
-
-
+  public DabDbContext ( DbContextOptions<DabDbContext> options ) : base( options )
+{ }
 
 
   public DbSet<Boisson> Boissons { get; set; }
@@ -27,14 +26,14 @@ namespace DAB.Data
 
   public DbSet<Recette> Recettes { get; set; }
 
-  public DbSet<RecetteIngredient> RecetteIngredients { get; set; }
+  //public DbSet<RecetteIngredient> RecetteIngredients { get; set; }
 
-  public DabDbContext () { }
-
+  
   protected override void OnModelCreating ( ModelBuilder modelBuilder )
    {
    modelBuilder.Entity<Boisson>()
     .HasKey( k => k.Id );
+
 
 
    // .WithMany( l => l.Ingredients ).

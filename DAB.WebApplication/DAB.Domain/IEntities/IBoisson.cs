@@ -16,6 +16,7 @@ namespace DAB.Domain.IEntities {
 
     Recette Recette { get; set; }
   int? RecetteId { get; set; }
+  int? BoissonStock { get; set; }
 
 
 

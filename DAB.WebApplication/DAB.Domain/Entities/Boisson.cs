@@ -18,23 +18,23 @@ namespace DAB.Domain.Entities
 
 
   public virtual Recette Recette { get; set; }
+  
   int? RecetteId { get; set; }
 
   public string Description { get; set; }
 
-  public int BoissonStock { get; set; }
-
+  public int? BoissonStock { get; set; }
   int? IBoisson.RecetteId { get; set; }
 
   public Boisson () { }
 
-  public Boisson ( int _id, string _name, string _description, Recette _recette, int _stock )
+  public Boisson ( int _id, string _name, string _description, Recette _recette, int recetteId )
    {
    this.Id= _id;
    this.Name = _name;
    this.Description = _description;
    this.Recette = _recette;
-   this.BoissonStock = _stock;
+   this.BoissonStock = recetteId;
    }
 
   }

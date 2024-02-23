@@ -16,7 +16,12 @@ namespace DAB.Service.Repository
  {
  public class BoissonRepository : IboissonRepo
   {
-  private readonly DabDbContext _dbContext = new DabDbContext();
+  private readonly DabDbContext _dbContext;
+
+  public BoissonRepository ( DabDbContext dbContext)
+   {
+   this._dbContext = dbContext;
+   }
   /// <summary>
   /// jout boisson à la machine
   /// </summary>
@@ -43,7 +48,7 @@ namespace DAB.Service.Repository
    {
    if ( boisson == null ) throw new ArgumentNullException( "veuillez choisir ajouter un boisson" );
     {
-    if ( stock > 0 )
+    if ( stock  != null && stock > 0 )
      boisson.BoissonStock = +stock;
     }
    }

@@ -16,7 +16,7 @@ namespace DAB.Web.Controllers
  public class HomeController : Controller
 
   {
-  DabDbContext _dbContext = new DabDbContext();
+  DabDbContext _dbContext ;
 
   private readonly ILogger<HomeController> _logger;
   private readonly DabDbContext dbContext;
@@ -41,7 +41,7 @@ namespace DAB.Web.Controllers
  
    List<Boisson> boissons = boissonRepo.FindAllBoisson().ToList();
    //List<BoissonViewModele> boissonViewModele = _mapper.Map<BoissonViewModele>(boissons);
-   return View(boissons); 
+   return View(); 
    }
   
   public IActionResult Privacy ( )

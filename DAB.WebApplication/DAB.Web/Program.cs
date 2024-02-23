@@ -10,35 +10,47 @@ using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+builder.Services.AddControllers();
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
-var conn = builder.Configuration.GetConnectionString("DabDbContext");
-builder.Services.AddDbContext<DabDbContext>( q => q.UseSqlServer( conn) );
+//var connectionString = builder.Configuration.GetConnectionString("DabDbContext");
+//builder.Services.AddDbContext<DabDbContext>( options =>
+  //  options.UseSqlServer( connectionString ) );
+
+builder.Services.AddRazorPages();
 
 
 
 
+builder.Services.AddDbContext<DabDbContext>(options =>
+options.UseSqlServer( builder.Configuration.GetConnectionString( "DabDbContext" ) ) );
 
 
-builder.Services.AddSingleton<IboissonRepo, BoissonRepository>();
+//var conn = builder.Configuration.GetConnectionString("DabDbContext");
+//builder.Services.AddDbContext<DabDbContext>( q => q.UseSqlServer( conn ) );
 
+
+
+builder.Services.AddDbContext<DabDbContext>();
+//builder.Services.AddSingleton<IboissonRepo, BoissonRepository>();
 builder.Services.AddScoped<IboissonRepo, BoissonRepository>();
-builder.Services.AddSingleton<IboissonRepo, BoissonRepository>();
+
+//builder.Services.AddScoped<IboissonRepo, BoissonRepository>();
+//builder.Services.AddSingleton<IboissonRepo, BoissonRepository>();
 
 
 
-builder.Services.AddScoped<IIngredientRepository, IngredientRepository>();
-builder.Services.AddSingleton<IIngredientRepository, IngredientRepository>();
+
+//builder.Services.AddScoped<IIngredientRepository, IngredientRepository>();
+//builder.Services.AddSingleton<IIngredientRepository, IngredientRepository>();
 
 
-builder.Services.AddScoped<IRecetteRepository, RecetteRepository>();
-builder.Services.AddSingleton<IRecetteRepository, RecetteRepository>();
+//builder.Services.AddScoped<IRecetteRepository, RecetteRepository>();
+//builder.Services.AddSingleton<IRecetteRepository, RecetteRepository>();
 
 
-builder.Services.AddScoped<IIngredientRepository, IngredientRepository>();
-builder.Services.AddScoped<IRecetteRepository, RecetteRepository>();
+//builder.Services.AddScoped<IIngredientRepository, IngredientRepository>();
+//builder.Services.AddScoped<IRecetteRepository, RecetteRepository>();
 
 
 var app = builder.Build();
