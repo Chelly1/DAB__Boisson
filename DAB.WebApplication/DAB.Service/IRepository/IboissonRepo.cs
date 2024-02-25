@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DAB.Service.IRepository
  {
- public interface IboissonRepo
+ public interface IBoissonRepo
   {
   ICollection<Boisson> FindAllBoisson ();
 

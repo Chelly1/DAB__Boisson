@@ -1,5 +1,8 @@
-﻿using DAB.Domain.Entities;
+﻿using DAB.Data;
+using DAB.Domain.Entities;
 using DAB.Service.IRepository;
+
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 using System;
 using System.Collections.Generic;
@@ -9,19 +12,29 @@ using System.Threading.Tasks;
 
 namespace DAB.Service.Repository
  {
+
  public class IngredientRepository : IIngredientRepository
   {
+
+  private readonly DabDbContext _dbContext;
+
+  public IngredientRepository(DabDbContext dbContext) 
+   {
+   this._dbContext = dbContext;
+   }
   public void AddIngredient ( Ingredient ingredient )
    {
-   throw new NotImplementedException();
-   }
-
-  public Ingredient FindIngredientBuId ( int id )
-   {
-   throw new NotImplementedException();
+   if(ingredient !=  null)
+    _dbContext.Ingredients.Add( ingredient );
+    
    }
 
   public Ingredient FindIngredientById ( int id )
+   {
+   throw new NotImplementedException();
+   }
+
+  public ICollection<Ingredient> GetAll ()
    {
    throw new NotImplementedException();
    }

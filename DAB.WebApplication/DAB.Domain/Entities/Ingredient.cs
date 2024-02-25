@@ -19,7 +19,16 @@ namespace DAB.Domain.Entities
   public string Description { get; set; } = "description";
 
   public Double Price { get; set; }
+  
+  virtual public ICollection<RecetteIngredient> RecetteIngredients { get; set; }
 
+  public Ingredient() { }
+  public Ingredient(string name, string description, double price) 
+   {
+   this.Name = name;
+   this.Description = description;
+   this.Price = price;
+   }
 
 
   //public IList<RecetteIngredient> recetteIngredients { get; set; }

@@ -1,10 +1,13 @@
 using DAB.Data;
+using DAB.Domain.Entities;
+using DAB.Domain.IEntities;
 using DAB.Service.IRepository;
 using DAB.Service.Repository;
 using DAB.Web.Models;
 
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 using System.Configuration;
 
@@ -22,36 +25,19 @@ builder.Services.AddRazorPages();
 
 
 
-builder.Services.AddDbContext<DabDbContext>(options =>
-options.UseSqlServer( builder.Configuration.GetConnectionString( "DabDbContext" ) ) );
+string conStr = builder.Configuration.GetConnectionString("MyConn");
+
+builder.Services.AddDbContext<DabDbContext>(options => options.UseSqlServer(@conStr ));
+
+builder.Services.AddScoped<IBoissonRepo, BoissonRepository>();
+builder.Services.AddScoped<IRecetteRepository, RecetteRepository>();
+builder.Services.AddScoped<IIngredientRepository, IngredientRepository>();
 
 
-//var conn = builder.Configuration.GetConnectionString("DabDbContext");
-//builder.Services.AddDbContext<DabDbContext>( q => q.UseSqlServer( conn ) );
-
-
-
-builder.Services.AddDbContext<DabDbContext>();
-//builder.Services.AddSingleton<IboissonRepo, BoissonRepository>();
-builder.Services.AddScoped<IboissonRepo, BoissonRepository>();
-
-//builder.Services.AddScoped<IboissonRepo, BoissonRepository>();
-//builder.Services.AddSingleton<IboissonRepo, BoissonRepository>();
-
-
-
-
-//builder.Services.AddScoped<IIngredientRepository, IngredientRepository>();
-//builder.Services.AddSingleton<IIngredientRepository, IngredientRepository>();
-
-
-//builder.Services.AddScoped<IRecetteRepository, RecetteRepository>();
-//builder.Services.AddSingleton<IRecetteRepository, RecetteRepository>();
-
-
-//builder.Services.AddScoped<IIngredientRepository, IngredientRepository>();
-//builder.Services.AddScoped<IRecetteRepository, RecetteRepository>();
-
+builder.Services.AddScoped<IBoisson, Boisson>();
+builder.Services.AddScoped<IRecette, Recette>();
+builder.Services.AddScoped<IIngredient, Ingredient>();
+builder.Services.AddScoped<IRecetteIngredient, RecetteIngredient>();
 
 var app = builder.Build();
 
@@ -72,11 +58,16 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller= Boisson}/{action=create}/{id?}" );
+    pattern: "{controller= Boisson}/{action=Index}/{id?}" );
 
 app.MapControllerRoute(
-    name: "Home",
-    pattern: "{controller=Home}/{action=Index}/{id?}" );
+    name: "Boisson",
+    pattern: "{controller=Boisson}/{action=Index}/{id?}" );
+
+
+app.MapControllerRoute(
+    name: "AllIngrediant",
+    pattern: "{controller=Ingrediant}/{action=FindAll_Ingrediant}/{id?}" );
 
 
 app.Run();

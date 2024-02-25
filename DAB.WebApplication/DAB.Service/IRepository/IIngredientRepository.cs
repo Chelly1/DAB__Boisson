@@ -10,6 +10,8 @@ namespace DAB.Service.IRepository
  {
  public interface IIngredientRepository
   {
+
+  ICollection<Ingredient> GetAll();
   void AddIngredient ( Ingredient ingredient );
 
   Ingredient FindIngredientById ( int id );

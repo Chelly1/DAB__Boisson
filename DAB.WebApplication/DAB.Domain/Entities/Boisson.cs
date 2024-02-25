@@ -1,5 +1,7 @@
 ﻿using DAB.Domain.IEntities;
 
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,30 +13,29 @@ namespace DAB.Domain.Entities
  {
  public class Boisson : IBoisson
   {
-
+  [Key]
   public int Id { get; }
 
   public string Name { get; set; } = "";
 
-
-  public virtual Recette Recette { get; set; }
+  public int RecetteId { get; set; }
   
-  int? RecetteId { get; set; }
+  public virtual Recette? Recette { get; set; }
+
 
   public string Description { get; set; }
 
-  public int? BoissonStock { get; set; }
-  int? IBoisson.RecetteId { get; set; }
+  public int? Boisson_Stock { get; set; }
 
   public Boisson () { }
 
-  public Boisson ( int _id, string _name, string _description, Recette _recette, int recetteId )
+  public Boisson ( int _id, string _name, string _description, Recette _recette, int boissonstock )
    {
-   this.Id= _id;
+   this.Id = _id;
    this.Name = _name;
    this.Description = _description;
    this.Recette = _recette;
-   this.BoissonStock = recetteId;
+   this.Boisson_Stock = boissonstock;
    }
 
   }

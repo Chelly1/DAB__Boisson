@@ -20,15 +20,38 @@ namespace DAB.Web.Controllers
 
   private readonly ILogger<HomeController> _logger;
   private readonly DabDbContext dbContext;
-  IboissonRepo boissonRepo;
+  IBoissonRepo boissonRepo;
   //private readonly IMapper _mapper;
 
 
-  public HomeController ( ILogger<HomeController> logger, IboissonRepo bookRepo)
+  public HomeController ( ILogger<HomeController> logger, IBoissonRepo bookRepo)
    {
    _logger = logger;
    this.boissonRepo = bookRepo;
   
+   }
+
+
+  [HttpGet]
+  public ActionResult create ()
+   {
+   return View( "create" );
+   }
+  [HttpPost]
+  public ActionResult create ( Boisson boisson )
+   {
+   if ( !ModelState.IsValid )
+    {
+    return BadRequest();
+    }
+   else
+    {
+    boissonRepo.AddBoisson( boisson );
+    return View( boisson );
+    //return RedirectToAction( nameof( Index ) );
+    }
+
+   return View( boisson );
    }
 
   /// <summary>

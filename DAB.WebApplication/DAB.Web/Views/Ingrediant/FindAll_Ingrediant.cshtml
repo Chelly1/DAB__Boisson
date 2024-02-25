@@ -1,10 +1,10 @@
-﻿@model IEnumerable<DAB.Domain.Entities.Boisson>
+﻿@model IEnumerable<DAB.Domain.Entities.Ingredient>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "FindAll_Ingrediant";
 }
 
-<h1>Index</h1>
+<h1>FindAll_Ingrediant</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -22,7 +22,7 @@
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Boisson_Stock)
+                @Html.DisplayNameFor(model => model.Price)
             </th>
             <th></th>
         </tr>
@@ -40,7 +40,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Boisson_Stock)
+                @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

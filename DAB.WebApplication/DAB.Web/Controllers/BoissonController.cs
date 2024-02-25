@@ -17,12 +17,12 @@ namespace DAB.Web.Controllers
   {
   //private readonly IMapper _mapper;
 
-  private IboissonRepo _iboissonRepo { get; set; }
+  private IBoissonRepo _iboissonRepo { get; set; }
   BoissonViewModele BoissonViewModele { get; set; }
   IBoisson _iboisson { get; set; }
 
 
-  public BoissonController ( IboissonRepo boissonRepo, IBoisson iboisson )//IMapper mapper )
+  public BoissonController ( IBoissonRepo boissonRepo, IBoisson iboisson )//IMapper mapper )
    {
 
    this._iboissonRepo = boissonRepo;
@@ -31,7 +31,14 @@ namespace DAB.Web.Controllers
    //this._mapper = mapper;
    }
 
-  [HttpGet]
+
+  public IActionResult Index ()
+   {
+   List<Boisson> bossons = _iboissonRepo.FindAllBoisson().ToList();
+   return View(bossons);
+
+   }
+   [HttpGet]
   public ActionResult create ()
    {
    return View( "create" );

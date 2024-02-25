@@ -12,17 +12,19 @@ namespace DAB.Domain.Entities
  {
  public class Recette : IRecette
   {
+
+  [Key]
+  public int Id { get; }
+
   public string Name { get; set; }
 
   public string Description { get; set; }
+  
 
-  [Key]
-  public int Id { get; }  
+  public virtual ICollection<RecetteIngredient> RecetteIngredients { get; set; }
 
-  public IList<Ingredient> Ingredients { get;set; }
+  public virtual Boisson Boisson { get; set; }
 
-
-  //public ICollection<RecetteIngredient> recetteIngredients { get;set;}
 
   public Recette () { }
 

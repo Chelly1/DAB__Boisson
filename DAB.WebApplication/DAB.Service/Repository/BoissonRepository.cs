@@ -3,22 +3,15 @@ using DAB.Domain.Entities;
 using DAB.Service.Exception;
 using DAB.Service.IRepository;
 
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAB.Service.Repository
  {
- public class BoissonRepository : IboissonRepo
+ public class BoissonRepository : IBoissonRepo
   {
   private readonly DabDbContext _dbContext;
 
-  public BoissonRepository ( DabDbContext dbContext)
+  public BoissonRepository ( DabDbContext dbContext )
    {
    this._dbContext = dbContext;
    }
@@ -48,12 +41,17 @@ namespace DAB.Service.Repository
    {
    if ( boisson == null ) throw new ArgumentNullException( "veuillez choisir ajouter un boisson" );
     {
-    if ( stock  != null && stock > 0 )
-     boisson.BoissonStock = +stock;
+    if ( stock != null && stock > 0 )
+     boisson.Boisson_Stock = +stock;
     }
    }
 
-
+  /// <summary>
+  /// Calcul Boissons pris du boisson
+  /// </summary>
+  /// <param name="boisson"></param>
+  /// <returns></returns>
+  /// <exception cref="BoissonNotFoundException"></exception>
   public Double CalculBoissonPrix ( Boisson boisson )
    {
    Double _Pris = 0;
@@ -86,17 +84,20 @@ namespace DAB.Service.Repository
    }
 
   public ICollection<Boisson> FindAllBoisson ()
-   {List<Boisson> boissons= _dbContext.Boissons.ToList() ;
-    if ( boissons == null )
-     {
-     throw new BoissonNotFoundException( "yooooooooo hneeeeeeee" );
-     }
-    else
-     {
-     return boissons.ToList();
-     }
-   }
 
+   {
+   ICollection<Boisson> boissonsList= _dbContext.Boissons.Include(r=>r.Recette).ToList() ;
+
+   if ( boissonsList == null )
+    {
+    throw new BoissonNotFoundException( "yooooooooo hneeeeeeee" );
+    }
+   else
+    {
+    return boissonsList.ToList();
+    }
+   }
+  //todo:  boisson, by id
   public ICollection<Ingredient> FindBoissantIngredients ( Boisson boisson )
    {
    List<Ingredient> _IngredientsResults = new List<Ingredient>();
@@ -104,56 +105,52 @@ namespace DAB.Service.Repository
     {
     throw new BoissonNotFoundException( "booisson non trouver" );
     }
-   else
+
+    return _dbContext.RecetteIngredients
+    .Where(ri=> ri.Recette != null && ri.Recette.Boisson != null && ri.Recette!.Boisson!.Id == boisson.Id)
+    .Select(ri=> ri.Ingredient).ToList();
+    }
+
+   public Boisson? FindBoissonByName ( string name )
     {
-    if ( boisson.Recette != null && boisson.Recette.Ingredients.Count() > 0 )
+    if ( name == null )
      {
-     _IngredientsResults = boisson.Recette.Ingredients.ToList();
+     throw new BoissonNotFoundException( "veeuillez ecrire le nom du boisson demandé" );
+     }
+    else
+     {
+     return _dbContext.Boissons.Where( b => b.Name.Equals( name ) ).FirstOrDefault() ?? throw new BoissonNotFoundException( "boisson not found" );
      }
     }
-   return _IngredientsResults ?? _IngredientsResults.ToList();
-   }
-
-  public Boisson? FindBoissonByName ( string name )
-   {
-   if ( name == null )
+   /// <summary>
+   /// find la frecette du boisson selectionner
+   /// </summary>
+   /// <param name="boisson"></param>
+   /// <returns></returns>
+   /// <exception cref="BoissonNotFoundException"></exception>
+   public Recette FindBoissonRcette ( Boisson boisson )
     {
-    throw new BoissonNotFoundException( "veeuillez ecrire le nom du boisson demandé" );
+    if ( boisson == null )
+     {
+     throw new BoissonNotFoundException( "veuillez saisir le boisson" );
+     }
+    throw new BoissonNotFoundException( "Boisson sans recette" );
     }
-   else
+
+
+   public Boisson? FindsBoissonById ( int id )
     {
-    return _dbContext.Boissons.Where( b => b.Name.Equals( name ) ).FirstOrDefault() ?? throw new BoissonNotFoundException( "boisson not found" );
+    if ( id == 0 )
+     {
+     throw new BoissonNotFoundException( "id fausse" );
+     }
+    return _dbContext.Boissons.Where( b => b.Id == id ).SingleOrDefault();
+
     }
-   }
-  /// <summary>
-  /// find la frecette du boisson selectionner
-  /// </summary>
-  /// <param name="boisson"></param>
-  /// <returns></returns>
-  /// <exception cref="BoissonNotFoundException"></exception>
-  public Recette FindBoissonRcette ( Boisson boisson )
-   {
-   if ( boisson == null )
+
+   public void UpdateBoisson ( Boisson boisson )
     {
-    throw new BoissonNotFoundException( "veuillez saisir le boisson" );
+    _dbContext.Boissons.Update( boisson );
     }
-   throw new BoissonNotFoundException( "Boisson sans recette" );
-   }
-
-
-  public Boisson? FindsBoissonById ( int id )
-   {
-   if ( id == 0 )
-    {
-    throw new BoissonNotFoundException( "id fausse" );
-    }
-   return _dbContext.Boissons.Where( b=> b.Id == id ).SingleOrDefault();
-
-   }
-
-  public void UpdateBoisson ( Boisson boisson )
-   {
-   _dbContext.Boissons.Update( boisson );
    }
   }
- }

@@ -10,15 +10,16 @@ namespace DAB.Domain.IEntities
  {
  public interface IRecetteIngredient
   {
-  int Id_Recette_Ingrediant { get; set; }
+  int Id { get; set; }
 
   Recette Recette { get; set; }
-  int? Recette_Id { get; set; }
+  int RecetteId { get; set; }
 
   Ingredient Ingredient { get; set; }
-  int Ingredient_Id { get; set; }
+  int IngredientId { get; set; }
 
   double Dose { get; set; }
+  string Unite { get; set; }
 
   }
  }

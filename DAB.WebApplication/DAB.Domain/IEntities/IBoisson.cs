@@ -6,19 +6,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAB.Domain.IEntities {
+namespace DAB.Domain.IEntities
+ {
 
  public interface IBoisson
-  { 
+  {
   int Id { get; }
-   string Name { get; }
-   string Description { get; set; }
+  string Name { get; }
+  string Description { get; set; }
 
-    Recette Recette { get; set; }
-  int? RecetteId { get; set; }
-  int? BoissonStock { get; set; }
+  Recette Recette { get; set; }
 
 
+  int? Boisson_Stock { get; set; }
 
+
+  int RecetteId { get; set; }
   }
  }

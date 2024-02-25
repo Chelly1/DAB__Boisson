@@ -12,10 +12,7 @@ namespace DAB.Domain.IEntities
   { 
   int Id { get; }
   string Name { get; set; }
-  IList<Ingredient> Ingredients { get; set; }
-
- //ICollection<RecetteIngredient> recetteIngredients { get; set; }
-
-
+  Boisson Boisson { get; set; }
+  ICollection<RecetteIngredient> RecetteIngredients { get; set; }
   }
  }

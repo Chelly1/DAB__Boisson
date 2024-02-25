@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DAB.Domain.IEntities
  {
- internal interface IIngredient
+ public interface IIngredient
   {
   int Id { get; }
 
@@ -20,7 +20,7 @@ namespace DAB.Domain.IEntities
 
   //IList<Recette> Recettes { get; }
 
-   //IList<RecetteIngredient> recetteIngredients { get; set; }
+   ICollection<RecetteIngredient> RecetteIngredients { get; set; }
 
  
   }
