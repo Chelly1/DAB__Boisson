@@ -70,7 +70,7 @@ app.MapControllerRoute(
 
 app.MapControllerRoute(
     name: "Boisson",
-    pattern: "{controller=Boisson}/{action=Index}/{id?}" );
+    pattern: "{controller=Boisson}/{action=create}/{id?}" );
 
 
 app.MapControllerRoute(
