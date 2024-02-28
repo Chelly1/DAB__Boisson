@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DAB.Service.Exception
  {
- public class NotFoundException : FormatException
+ public class BoissonNotFoundException : FormatException
   {
 
   private long _isbn =0;
@@ -20,11 +20,11 @@ namespace DAB.Service.Exception
    }
 
 
-  public NotFoundException ( string mssg ) : base( String.Format( " not found" ) ){ }
+  public BoissonNotFoundException ( string mssg ) : base( String.Format( "Boisson not found" ) ){ }
 
-  public NotFoundException ( string mssg, long isbn ) : base( String.Format( " not found : {isbn}" ) ) { }
+  public BoissonNotFoundException ( string mssg, long isbn ) : base( String.Format( "Boisson not found : {isbn}" ) ) { }
 
-  public NotFoundException ()
+  public BoissonNotFoundException ()
    {
    }
   }

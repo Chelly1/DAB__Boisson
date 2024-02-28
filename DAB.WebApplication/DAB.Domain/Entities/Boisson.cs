@@ -20,7 +20,7 @@ namespace DAB.Domain.Entities
 
   public int RecetteId { get; set; }
   
-  public virtual Recette? Recette { get; set; }
+  public virtual Recette Recette { get; set; }
 
 
   public string Description { get; set; }
@@ -29,9 +29,8 @@ namespace DAB.Domain.Entities
 
   public Boisson () { }
 
-  public Boisson ( int _id, string _name, string _description, Recette _recette, int boissonstock )
+  public Boisson (  string _name, string _description, Recette _recette, int boissonstock )
    {
-   this.Id = _id;
    this.Name = _name;
    this.Description = _description;
    this.Recette = _recette;

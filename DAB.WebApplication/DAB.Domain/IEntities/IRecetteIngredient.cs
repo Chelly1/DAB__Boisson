@@ -21,5 +21,6 @@ namespace DAB.Domain.IEntities
   double Dose { get; set; }
   string Unite { get; set; }
 
+
   }
  }

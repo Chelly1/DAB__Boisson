@@ -16,19 +16,20 @@ namespace DAB.Domain.Entities
   [Key]
   public int Id { get; }
 
-  public string Name { get; set; }
+  public string Name { get; set; } = "";
 
-  public string Description { get; set; }
+  public string Description { get; set; } = "";
   
 
   public virtual ICollection<RecetteIngredient> RecetteIngredients { get; set; }
+  = new List<RecetteIngredient>();
 
   public virtual Boisson Boisson { get; set; }
 
 
   public Recette () { }
 
-  public Recette ( string _name, string _description )
+  public Recette ( string _name, string _description, ICollection<RecetteIngredient> recetteIngrediant  )
    {
    this.Name = _name;
    this.Description = _description;

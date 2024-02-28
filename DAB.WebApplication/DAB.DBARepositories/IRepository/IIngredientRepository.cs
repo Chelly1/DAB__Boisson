@@ -1,7 +1,4 @@
 ﻿using DAB.Domain.Entities;
-using DAB.Service.Exception;
-
-using Microsoft.EntityFrameworkCore;
 
 using System;
 using System.Collections.Generic;
@@ -14,28 +11,19 @@ namespace DAB.Service.IRepository
  public interface IIngredientRepository
   {
 
-
+  ICollection<Ingredient> GetAll();
   void AddIngredient ( Ingredient ingredient );
 
   Ingredient FindIngredientById ( int id );
 
   List<Ingredient> GetAllIngrediant ();
-  void updateIngrediant(Ingredient ingredient );
 
   Decimal GetIngredientCost (Ingredient ingredient);
 
-  void SetIngredientCost(Ingredient ingredient,double cost);
+  void SEtIngredientCost(Ingredient ingredient,decimal cost);
 
   ICollection<Recette> RecetteIngrediant(Ingredient ingredient );
 
 
-  ICollection<Ingredient> FindBoissantIngredients ( Boisson boisson );
-
-  ICollection<RecetteIngredient> FindRecetteIngrediantByRecette ( Recette recette );
-
-  ICollection<Ingredient> FindIngredizantByRecetteIngrediant ( RecetteIngredient recetteIngredient );
-
-
-   }
-  
+  }
  }

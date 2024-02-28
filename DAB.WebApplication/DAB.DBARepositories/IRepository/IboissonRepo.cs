@@ -25,7 +25,8 @@ namespace DAB.Service.IRepository
 
   Recette FindBoissonRcette ( Boisson boisson );
   
- 
+  
+  Double CalculBoissonPrix( Boisson boisson );
   public ICollection<Ingredient> FindBoissantIngredients ( Boisson boisson );
 
 

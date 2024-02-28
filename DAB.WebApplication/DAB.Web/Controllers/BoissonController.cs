@@ -5,6 +5,8 @@ using DAB.Domain.IEntities;
 using DAB.Service.IRepository;
 using DAB.Web.Models;
 
+using DBA.RespositoriesService1;
+using DBA.RespositoriesService1.Modele;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -20,10 +22,13 @@ namespace DAB.Web.Controllers
   private IBoissonRepo _iboissonRepo { get; set; }
   BoissonViewModele BoissonViewModele { get; set; }
   IBoisson _iboisson { get; set; }
+ 
+  Iservice1 _service { get; set; }
 
 
-  public BoissonController ( IBoissonRepo boissonRepo, IBoisson iboisson )//IMapper mapper )
+  public BoissonController ( IBoissonRepo boissonRepo, IBoisson iboisson, Iservice1 iservice )
    {
+   this._service = iservice;
 
    this._iboissonRepo = boissonRepo;
 
@@ -35,32 +40,24 @@ namespace DAB.Web.Controllers
   public IActionResult Index ()
    {
    List<Boisson> bossons = _iboissonRepo.FindAllBoisson().ToList();
-   return View(bossons);
+   return View( bossons );
 
    }
-   [HttpGet]
+  [HttpGet]
   public ActionResult create ()
    {
-   return View( "create" );
-   }
-  [HttpPost]
-  public ActionResult create ( Boisson boisson)
-   {
-   if ( !ModelState.IsValid )
-    {
-    return BadRequest();
-    }
-   else
-    {
-    _iboissonRepo.AddBoisson( boisson );
-    return View(boisson);
-    //return RedirectToAction( nameof( Index ) );
-    }
+   return View();
 
-   return View(boisson);
    }
+
+
 
 
 
   }
- }
+ } 
+  
+
+ 
+
+ 

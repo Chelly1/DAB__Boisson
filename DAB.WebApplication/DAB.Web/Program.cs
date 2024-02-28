@@ -5,6 +5,8 @@ using DAB.Service.IRepository;
 using DAB.Service.Repository;
 using DAB.Web.Models;
 
+using DBA.RespositoriesService1;
+
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -27,11 +29,17 @@ builder.Services.AddRazorPages();
 
 string conStr = builder.Configuration.GetConnectionString("MyConn");
 
-builder.Services.AddDbContext<DabDbContext>(options => options.UseSqlServer(@conStr ));
+builder.Services.AddDbContext<DabDbContext>( options => options.UseSqlServer( @conStr ) );
+
+builder.Services.AddScoped<Iservice1, Service1>();
+
 
 builder.Services.AddScoped<IBoissonRepo, BoissonRepository>();
-builder.Services.AddScoped<IRecetteRepository, RecetteRepository>();
+builder.Services.AddScoped<IRecetteIngrediantRepository,RecetteIngrediantRepository>();
 builder.Services.AddScoped<IIngredientRepository, IngredientRepository>();
+
+builder.Services.AddScoped<IRecetteRepository, RecetteRepository>();
+
 
 
 builder.Services.AddScoped<IBoisson, Boisson>();
@@ -58,7 +66,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller= Boisson}/{action=Index}/{id?}" );
+    pattern: "{controller= Home}/{action=Index}/{id?}" );
 
 app.MapControllerRoute(
     name: "Boisson",

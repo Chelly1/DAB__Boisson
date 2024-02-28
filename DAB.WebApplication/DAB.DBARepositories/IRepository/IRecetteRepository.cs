@@ -21,9 +21,5 @@ namespace DAB.Service.IRepository
   Boisson Find_BoissonByRecette ( Recette recette );
 
   ICollection<Ingredient> IngredByRecette ( Recette recette );
-
-  ICollection<RecetteIngredient> FindRecetteIngrediantByRecette ( Recette recette );
-
-  void UpdateRecette(Recette recette );
   }
  }
