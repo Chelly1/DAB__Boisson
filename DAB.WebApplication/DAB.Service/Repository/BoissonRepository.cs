@@ -41,7 +41,7 @@ namespace DAB.Service.Repository
    {
    if ( boisson == null ) throw new ArgumentNullException( "veuillez choisir ajouter un boisson" );
     {
-    if ( stock != null && stock > 0 )
+   
      boisson.Boisson_Stock = +stock;
     }
    }

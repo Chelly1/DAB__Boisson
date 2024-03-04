@@ -15,56 +15,61 @@ namespace DBA.RespositoriesService1
   #region Boisson
 
   List<Boisson> getAllBoissson();
+  ICollection<BoissonViewModel> getAllBoissonViewModele();
   void AddBoisson ( BoissonViewModel boissonViewModele );
   void AddBoissonstock ( BoissonViewModel boissonViewModele, int stock );
   void UpdateBoisson ( BoissonViewModel boissonViewModele );
   BoissonViewModel FinfBoissonById ( int id );
   BoissonViewModel FindBoissonByName ( string name );
-  RecetteViewModelee FindBoissonRcette ( BoissonViewModel boissonViewModele );
+  RecetteViewModel FindBoissonRcette ( BoissonViewModel boissonViewModele );
   Double CalculBoissonPrix ( BoissonViewModel boissonViewModele );
-  ICollection<IngrediantViewModelee> FindBoissantIngredients ( BoissonViewModel boissonViewModele );
+  ICollection<IngrediantViewModel> FindBoissantIngredients ( BoissonViewModel boissonViewModele );
 
   #endregion Boisson
 
   #region Ingrediant
 
-  ICollection<IngrediantViewModelee> GetAllIngrediantViewModel ();
-  void AddIngredient ( IngrediantViewModelee ingredientViewModel );
-  IngrediantViewModelee FindIngredientById ( int id );
-  List<IngrediantViewModelee> GetAllIngrediant ();
-  Decimal GetIngredientCost ( IngrediantViewModelee ingredientViewModel );
+  ICollection<IngrediantViewModel> GetAllIngrediantViewModel ();
+  void AddIngredient ( IngrediantViewModel ingredientViewModel );
+  IngrediantViewModel FindIngredientById ( int id );
+  List<IngrediantViewModel> GetAllIngrediant ();
+  Decimal GetIngredientCost ( IngrediantViewModel ingredientViewModel );
   void SetIngredientCost ( Ingredient ingredient, decimal cost );
-  ICollection<RecetteViewModelee> RecetteIngrediant ( IngrediantViewModelee ingredientViewModel );
+  ICollection<RecetteViewModel> FindRecetteByIngrediant ( IngrediantViewModel ingredientViewModel );
 
   #endregion Ingrediant
 
 
   #region  Recette
 
-  void AddNewRecette ( RecetteViewModelee recetteViewModel );
+  void AddNewRecette ( RecetteViewModel recetteViewModel );
 
-  void DeleteRecette ( RecetteViewModelee recetteViewModel );
+  void DeleteRecette ( RecetteViewModel recetteViewModel );
 
-  RecetteViewModelee FindRecetteById ( int id );
+  RecetteViewModel FindRecetteById ( int id );
 
-  RecetteViewModelee FindRecetteByName ( string name );
+  RecetteViewModel FindRecetteByName ( string name );
 
-  BoissonViewModel Find_BoissonByRecette ( RecetteViewModelee recetteViewModel );
+  BoissonViewModel Find_BoissonByRecette ( RecetteViewModel recetteViewModel );
 
-  ICollection<IngrediantViewModelee> IngrediantByRecette ( RecetteViewModelee recetteViewModel );
+  ICollection<IngrediantViewModel> IngrediantByRecette ( RecetteViewModel recetteViewModel );
 
   #endregion
 
   // Map ingrediant to Ingrediiant modele
-  IngrediantViewModelee Map_IngridiantToIngrediantViewModel ( Ingredient ingredient );
-  Ingredient Map_IngrediantViewModele_ToIngrediant ( IngrediantViewModelee ingrediantViewModele );
+  IngrediantViewModel Map_IngridiantToIngrediantViewModel ( Ingredient ingredient );
+  Ingredient Map_IngrediantViewModele_ToIngrediant ( IngrediantViewModel ingrediantViewModele );
 
 
   Boisson Map_BoissonViewModel_ToBoisson ( BoissonViewModel BoissonViewModele );
   BoissonViewModel Map_BoissonToBoissonViewModel ( Boisson boisson );
 
-  Recette Map_RecetteViewModeleToReecette ( RecetteViewModelee recetteViewModel );
-  RecetteViewModelee Map_Recette_ToRecetteViewModele ( Recette recette );
+  Recette Map_RecetteViewModeleToReecette ( RecetteViewModel recetteViewModel );
+  RecetteViewModel Map_Recette_ToRecetteViewModele ( Recette recette );
+
+  ICollection<IngrediantViewModel> FindIngrediantViewModel ();
+
+  ICollection<RecetteIngredient>  FindRecetteIngrediantByIngrediant ( IngrediantViewModel ingrediantViewModel );
 
 
   }

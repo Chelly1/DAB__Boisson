@@ -43,9 +43,9 @@ namespace DAB.Web.Controllers
   [HttpGet]
   public ActionResult Index ()
    {
-   List<Boisson> boissons = _service.getAllBoissson().ToList();
+   IEnumerable<Boisson> boissons = _service.getAllBoissson().ToList();
    //List<BoissonViewModele> boissonViewModele = _mapper.Map<BoissonViewModele>(boissons);
-   return View();
+   return View( boissons);
    }
 
 

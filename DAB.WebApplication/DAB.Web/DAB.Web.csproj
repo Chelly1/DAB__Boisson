@@ -24,4 +24,8 @@
     <ProjectReference Include="..\DBA.RespositoriesService1\DBA.RespositoriesService1.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\NewFolder\" />
+  </ItemGroup>
+
 </Project>

@@ -43,17 +43,17 @@ namespace DAB.Service.Repository
 
 
   public Recette FindRecetteById ( int id )
-   {if(id== null)
-     { throw new NotFoundException( "id" ); }
-
-   if(_dbContext.Recettes.Find( id ) == null )
-     { 
-       throw new NotFoundException( "pas de recette" ); 
-     }
-   return _dbContext.Recettes.Find(id );
-     }
-
-
+   {
+   if ( _dbContext.Recettes.Find( id ) == null )
+    {
+    throw new NotFoundException( "pas de recette" );
+    }
+   else
+    {
+    return _dbContext.Recettes.Find( id );
+    }
+   }
+ 
   public Recette FindRecetteByName ( string name )
    {
    Recette recette;

@@ -2,6 +2,9 @@
 using DAB.Service.IRepository;
 using DAB.Web.Models;
 
+using DBA.RespositoriesService1;
+using DBA.RespositoriesService1.Modele;
+
 using Microsoft.AspNetCore.Mvc;
 
 using System.Security.Cryptography.X509Certificates;
@@ -12,44 +15,54 @@ namespace DAB.Web.Controllers
   {
 
   IIngredientRepository _ingrediantRepo;
-  
-  public IngrediantController(IIngredientRepository ingredientRepository)
+  Iservice1 _service { get; set; }
+
+
+  public IngrediantController(IIngredientRepository ingredientRepository, Iservice1 service)
    {
    this._ingrediantRepo = ingredientRepository;
-   }
-
-  public IActionResult Index ()
-   {
-   return View();
-   }
-
-  public ActionResult FindAll_Ingrediant()
-   {
-   return View( _ingrediantRepo.GetAllIngrediant().ToList() );
+   this._service = service;
    }
 
   [HttpGet]
-  public ActionResult AddIngrediant()
+  public ActionResult create()
    {
    return View();
    }
   [HttpPost]
-  public ActionResult AddIngrediant ( IngredientModele ingredientModele )
+  public ActionResult create ( IngrediantViewModel ingrediantViewModele)
    {
-   if ( !ModelState.IsValid )
-    { }
-   else {
-    Ingredient _ingrediant= new Ingredient
-     (
-       ingredientModele.Name,
-       ingredientModele.Description ,
-       ingredientModele.Price
-      );
-    _ingrediantRepo.AddIngredient( _ingrediant );
+   if(!ModelState.IsValid)
+    {
+    return BadRequest(ModelState);
     }
-    return View();
-     }
+   else
+    {
+    _service.AddIngredient(ingrediantViewModele);
+    return View("Index");
 
+    }
+   }
+
+  [HttpGet]
+  public IActionResult Index ()
+   {
+
+   ICollection<IngrediantViewModel> ingrediantList = _service.FindIngrediantViewModel();
+
+   if ( ingrediantList == null )
+    {
+    throw new Exception( "ingrediant non renseinger" );
+    }
+   else
+    {
+    return View( ingrediantList );
+    }
+
+   }
+
+  
+ 
   public ActionResult DeleteIngrediant() 
    {
    return View();

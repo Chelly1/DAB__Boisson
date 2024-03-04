@@ -13,7 +13,7 @@ namespace DBA.RespositoriesService1.Modele
   public string Name { get; set; } = "";
 
   [DisplayName( "la recette du boisson" )]
-  public RecetteViewModelee RecetteViewModel { get; set; }
+  public RecetteViewModel RecetteViewModel { get; set; }
 
   public string Description { get; set; }
   public int? stock {  get; set; }

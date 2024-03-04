@@ -64,18 +64,18 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+//app.MapControllerRoute(
+//    name: "Home",
+//    pattern: "{controller= Home}/{action=Index}/{id?}" );
+
+//app.MapControllerRoute(
+//    name: "Boisson",
+//    pattern: "{controller=Boisson}/{action=create}/{id?}" );
+
+
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller= Home}/{action=Index}/{id?}" );
-
-app.MapControllerRoute(
-    name: "Boisson",
-    pattern: "{controller=Boisson}/{action=create}/{id?}" );
-
-
-app.MapControllerRoute(
-    name: "AllIngrediant",
-    pattern: "{controller=Ingrediant}/{action=FindAll_Ingrediant}/{id?}" );
+    pattern: "{controller=Ingrediant}/{action=Index}/{id?}" );
 
 
 app.Run();

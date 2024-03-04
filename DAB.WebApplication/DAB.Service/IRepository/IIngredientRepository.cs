@@ -34,6 +34,8 @@ namespace DAB.Service.IRepository
   ICollection<RecetteIngredient> FindRecetteIngrediantByRecette ( Recette recette );
 
   ICollection<Ingredient> FindIngredizantByRecetteIngrediant ( RecetteIngredient recetteIngredient );
+  
+  Ingredient GetIngredientByName(string name);
 
 
    }

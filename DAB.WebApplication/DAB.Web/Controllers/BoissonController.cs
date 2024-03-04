@@ -5,11 +5,15 @@ using DBA.RespositoriesService1.Modele;
 using DBA.RespositoriesService1;
 
 using Microsoft.AspNetCore.Mvc;
+using DAB.Domain.Entities;
+using System.Collections;
 
 namespace DAB.Web.Controllers
  {
  public class BoissonController : Controller
   {
+
+
 
   //private readonly IMapper _mapper;
 
@@ -23,6 +27,14 @@ namespace DAB.Web.Controllers
   public BoissonController ( Iservice1 iservice )
    {
    this._service = iservice;
+   }
+
+  [HttpGet]
+  public ActionResult Index ()
+   {
+   ICollection<Boisson> boissons = _service.getAllBoissson().ToList();
+   //List<BoissonViewModele> boissonViewModele = _mapper.Map<BoissonViewModele>(boissons);
+   return View( boissons );
    }
 
   [HttpGet]
@@ -44,6 +56,8 @@ namespace DAB.Web.Controllers
     return View( "Index","Home" );
     }
    }
+
+
 
 
 

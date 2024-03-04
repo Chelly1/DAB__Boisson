@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DBA.RespositoriesService1.Modele
  {
- public class RecetteViewModelee
+ public class RecetteViewModel
   {
   [ReadOnly( true )]
   //[Required]
@@ -18,9 +18,9 @@ namespace DBA.RespositoriesService1.Modele
   public string Description { get; set; }
 
   public ICollection<Ingredient> ingredients { get; set; }
-  public RecetteViewModelee () { }
+  public RecetteViewModel () { }
 
-  public RecetteViewModelee ( string name, string description, ICollection<Ingredient> ingrediantList ) { }
+  public RecetteViewModel ( string name, string description, ICollection<Ingredient> ingrediantList ) { }
 
   
   

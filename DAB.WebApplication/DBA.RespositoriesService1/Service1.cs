@@ -4,6 +4,8 @@ using DAB.Service.IRepository;
 
 using DBA.RespositoriesService1.Modele;
 
+using System.Collections.Generic;
+
 namespace DBA.RespositoriesService1
  {
  public class Service1 : Iservice1
@@ -43,13 +45,13 @@ namespace DBA.RespositoriesService1
    }
 
 
-  public void AddIngredient ( IngrediantViewModelee ingredientViewModel )
+  public void AddIngredient ( IngrediantViewModel ingredientViewModel )
    {
    Ingredient ingredient = Map_IngrediantViewModele_ToIngrediant(ingredientViewModel);
-   _ingredientRepository.updateIngrediant( ingredient );
+   _ingredientRepository.AddIngredient( ingredient );
    }
 
-  public void AddNewRecette ( RecetteViewModelee recetteViewModel )
+  public void AddNewRecette ( RecetteViewModel recetteViewModel )
    {
    if ( recetteViewModel == null )
     {
@@ -74,12 +76,12 @@ namespace DBA.RespositoriesService1
    throw new NotImplementedException();
    }
 
-  public void DeleteRecette ( RecetteViewModelee recetteViewModel )
+  public void DeleteRecette ( RecetteViewModel recetteViewModel )
    {
    throw new NotImplementedException();
    }
 
-  public ICollection<IngrediantViewModelee> FindBoissantIngredients ( BoissonViewModel boissonViewModele )
+  public ICollection<IngrediantViewModel> FindBoissantIngredients ( BoissonViewModel boissonViewModele )
    {
    throw new NotImplementedException();
    }
@@ -89,27 +91,27 @@ namespace DBA.RespositoriesService1
    throw new NotImplementedException();
    }
 
-  public RecetteViewModelee FindBoissonRcette ( BoissonViewModel boissonViewModele )
+  public RecetteViewModel FindBoissonRcette ( BoissonViewModel boissonViewModele )
    {
    throw new NotImplementedException();
    }
 
-  public IngrediantViewModelee FindIngredientById ( int id )
+  public IngrediantViewModel FindIngredientById ( int id )
    {
    throw new NotImplementedException();
    }
 
-  public RecetteViewModelee FindRecetteById ( int id )
+  public RecetteViewModel FindRecetteById ( int id )
    {
    throw new NotImplementedException();
    }
 
-  public RecetteViewModelee FindRecetteByName ( string name )
+  public RecetteViewModel FindRecetteByName ( string name )
    {
    throw new NotImplementedException();
    }
 
-  public BoissonViewModel Find_BoissonByRecette ( RecetteViewModelee recetteViewModel )
+  public BoissonViewModel Find_BoissonByRecette ( RecetteViewModel recetteViewModel )
    {
    throw new NotImplementedException();
    }
@@ -119,27 +121,27 @@ namespace DBA.RespositoriesService1
    throw new NotImplementedException();
    }
 
-  public List<IngrediantViewModelee> GetAllIngrediant ()
+  public List<IngrediantViewModel> GetAllIngrediant ()
    {
    throw new NotImplementedException();
    }
 
-  public ICollection<IngrediantViewModelee> GetAllIngrediantViewModel ()
+  public ICollection<IngrediantViewModel> GetAllIngrediantViewModel ()
    {
    throw new NotImplementedException();
    }
 
-  public decimal GetIngredientCost ( IngrediantViewModelee ingredientViewModel )
+  public decimal GetIngredientCost ( IngrediantViewModel ingredientViewModel )
    {
    throw new NotImplementedException();
    }
 
-  public ICollection<IngrediantViewModelee> IngrediantByRecette ( RecetteViewModelee recetteViewModel )
+  public ICollection<IngrediantViewModel> IngrediantByRecette ( RecetteViewModel recetteViewModel )
    {
    throw new NotImplementedException();
    }
 
-  public ICollection<RecetteViewModelee> RecetteIngrediant ( IngrediantViewModelee ingredientViewModel )
+  public ICollection<RecetteViewModel> RecetteIngrediant ( IngrediantViewModel ingredientViewModel )
    {
    throw new NotImplementedException();
    }
@@ -154,15 +156,32 @@ namespace DBA.RespositoriesService1
    throw new NotImplementedException();
    }
 
-  public IngrediantViewModelee Map_IngridiantToIngrediantViewModel ( Ingredient ingredient )
+
+  public IngrediantViewModel Map_IngridiantToIngrediantViewModel ( Ingredient ingredient )
    {
    throw new NotImplementedException();
    }
 
-  public Ingredient Map_IngrediantViewModele_ToIngrediant ( IngrediantViewModelee ingrediantViewModele )
+  public Ingredient Map_IngrediantViewModele_ToIngrediant ( IngrediantViewModel ingrediantViewModele )
    {
-   throw new NotImplementedException();
-   }
+   if ( ingrediantViewModele == null )
+    {
+    throw new  Exception( "ingrediantViw null" );
+    }
+   else
+    {
+    Ingredient ingredient = new Ingredient
+     {
+     Name= ingrediantViewModele.Name,
+     Description= ingrediantViewModele.Description,
+     Price= ingrediantViewModele.Price,
+     RecetteIngredients=FindRecetteIngrediantByIngrediant ( ingrediantViewModele )
+
+     };
+    return ingredient;
+    
+    }
+    }
 
   public Boisson Map_BoissonViewModel_ToBoisson ( BoissonViewModel BoissonViewModele )
    {
@@ -188,7 +207,7 @@ namespace DBA.RespositoriesService1
     Name= boisson.Name?? "",
     Description= boisson.Description??"",
     stock = boisson.Boisson_Stock,
-    RecetteViewModel = new RecetteViewModelee
+    RecetteViewModel = new RecetteViewModel
      {
      Name= boisson.Recette.Name,
      Description= boisson.Recette.Description,
@@ -205,7 +224,7 @@ namespace DBA.RespositoriesService1
 
 
   //Map les donnes de recetteViewModele dans Recette
-  public Recette Map_RecetteViewModeleToReecette ( RecetteViewModelee recetteViewModel )
+  public Recette Map_RecetteViewModeleToReecette ( RecetteViewModel recetteViewModel )
    {
    List<RecetteIngredient>  ingrediantByRecette = new List<RecetteIngredient>();
    if ( recetteViewModel == null )
@@ -246,9 +265,9 @@ namespace DBA.RespositoriesService1
   /// <param name="recette"></param>
   /// <returns></returns>
   /// <exception cref="NotImplementedException"></exception>
-  public RecetteViewModelee Map_Recette_ToRecetteViewModele ( Recette recette )
+  public RecetteViewModel Map_Recette_ToRecetteViewModele ( Recette recette )
    {
-   RecetteViewModelee recetteViewModele =  new RecetteViewModelee() ;
+   RecetteViewModel recetteViewModele =  new RecetteViewModel() ;
    List <Ingredient> ingredients = new List<Ingredient> ();
    List<RecetteIngredient> recetteIngredients = recette.RecetteIngredients.ToList ();
 
@@ -280,6 +299,55 @@ namespace DBA.RespositoriesService1
    return _boissonRepo.FindAllBoisson().ToList();
    }
 
+  public ICollection<BoissonViewModel> getAllBoissonViewModele ()
+   {
+   throw new NotImplementedException();
+   }
 
+  public ICollection<RecetteViewModel> FindRecetteByIngrediant ( IngrediantViewModel ingredientViewModel )
+   {
+   throw new NotImplementedException();
+   }
+
+  public ICollection<IngrediantViewModel> FindIngrediantViewModel ()
+   {
+   List<Ingredient>ingredients = _ingredientRepository.GetAllIngrediant();
+   List<IngrediantViewModel> ingrediantViewModels = new List<IngrediantViewModel>();
+   if ( ingredients == null )
+    {
+    throw new Exception( "not found ingrediant exception" );
+    }
+   else
+    {
+    foreach ( Ingredient ingredient in ingredients )
+     {
+     if ( ingredient != null )
+      {
+      IngrediantViewModel ingrediantViewModel = Map_IngridiantToIngrediantViewModel( ingredient );
+      ingrediantViewModels.Add( ingrediantViewModel );
+      }
+
+     }
+
+    return ingrediantViewModels;
+    }
+   }
+
+  ICollection<RecetteIngredient>   FindRecetteIngrediantByIngrediant(IngrediantViewModel ingrediantViewModel )
+   { 
+
+   Ingredient ingredient =  Map_IngrediantViewModele_ToIngrediant(ingrediantViewModel);
+
+
+   List<RecetteIngredient> recetteIngrediantList  = _recetteIngrediantRepository.GetRecetteIngrediantsByIngrediant(ingredient);
+
+   return recetteIngrediantList;
+
+   }
+
+  ICollection<RecetteIngredient> Iservice1.FindRecetteIngrediantByIngrediant ( IngrediantViewModel ingrediantViewModel )
+   {
+   throw new NotImplementedException();
+   }
   }
  }

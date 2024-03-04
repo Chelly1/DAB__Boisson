@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DBA.RespositoriesService1.Modele
  {
- public class IngrediantViewModelee
+ public class IngrediantViewModel
   {
   [DisplayName( "Ingrediant name" )]
 

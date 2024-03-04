@@ -159,7 +159,40 @@ namespace DAB.Service.Repository
 
   public void updateIngrediant ( Ingredient ingredient )
    {
-   _dbContext.Ingredients.Update( ingredient );
+   if ( ingredient == null )
+    {
+    throw new NotFoundException( "" );
+    }
+   else
+    {
+
+
+    _dbContext.Ingredients.Update( ingredient );
+    }
    }
-  }
+
+
+
+  Ingredient IIngredientRepository.GetIngredientByName ( string name )
+   {
+
+   if ( name == null )
+    {
+    throw new NotFoundException( "ingrediant name absent" );
+    }
+   else
+    {
+    if ( _dbContext.Ingredients.Where( i => i.Name.Equals( name ) ).FirstOrDefault() == null )
+     {
+     throw new NotFoundException( "Ingredient pas renseignee" );
+     }
+    return _dbContext.Ingredients.Where( i => i.Name.Equals( name ) ).FirstOrDefault();
+
+
+    }
+   }
+
+
+
+   }
  }
