@@ -4,8 +4,8 @@ using DAB.Domain.IEntities;
 using DAB.Service.IRepository;
 using DAB.Service.Repository;
 using DAB.Web.Models;
+using DAB.Web.service;
 
-using DBA.RespositoriesService1;
 
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -31,7 +31,7 @@ string conStr = builder.Configuration.GetConnectionString("MyConn");
 
 builder.Services.AddDbContext<DabDbContext>( options => options.UseSqlServer( @conStr ) );
 
-builder.Services.AddScoped<Iservice1, Service1>();
+builder.Services.AddScoped<Iservice, Service>();
 
 
 builder.Services.AddScoped<IBoissonRepo, BoissonRepository>();
@@ -46,6 +46,12 @@ builder.Services.AddScoped<IBoisson, Boisson>();
 builder.Services.AddScoped<IRecette, Recette>();
 builder.Services.AddScoped<IIngredient, Ingredient>();
 builder.Services.AddScoped<IRecetteIngredient, RecetteIngredient>();
+
+//builder.Services.AddAutoMapper( AppDomain .CurrentDomain.GetAssemblies() );
+
+builder.Services.AddAutoMapper( AppDomain.CurrentDomain.GetAssemblies() );
+
+builder.Services.AddAutoMapper( typeof( Program ) );
 
 var app = builder.Build();
 
@@ -75,7 +81,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Ingrediant}/{action=Index}/{id?}" );
+    pattern: "{controller=Ingrediant}/{action=create}/{id?}" );
 
 
 app.Run();

@@ -5,15 +5,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DAB.Web.Models
  {
- public class RecetteViewModel
+ public class RecetteViewModele
   {
   [ReadOnly(true)]
   [Required]
   public string Name { get; set; }
 
   public string Description { get; set; }
-  ICollection<Ingredient> ingredients { get; set; }
 
-  public Dictionary<string, double> BoissonRecette { get; set; }
+  ICollection<string> IngredientsName { get; set; }
+
+  public Boisson BoissonOfRecette { get; set; }
+  
   }
  }

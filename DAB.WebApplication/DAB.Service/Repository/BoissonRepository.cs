@@ -132,7 +132,7 @@ namespace DAB.Service.Repository
   /// <param name="name">boisson name</param>
   /// <returns></returns>
   /// <exception cref="NotFoundException"></exception>
-  public Boisson? FindBoissonByName ( string name )
+  public Boisson FindBoissonByName ( string name )
    {
    if ( name == null )
     {

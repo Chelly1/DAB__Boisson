@@ -19,9 +19,9 @@ namespace DAB.Service.IRepository
   void UpdateBoisson ( Boisson boisson );
 
   
-  Boisson? FindsBoissonById ( int id );
+  Boisson FindsBoissonById ( int id );
 
-  Boisson? FindBoissonByName ( string name );
+  Boisson FindBoissonByName ( string name );
 
   Recette FindBoissonRcette ( Boisson boisson );
   

@@ -1,13 +1,13 @@
-﻿using DAB.Domain.Entities;
+﻿using AutoMapper;
+
+using DAB.Domain.Entities;
 using DAB.Service.IRepository;
 using DAB.Web.Models;
-
-using DBA.RespositoriesService1;
-using DBA.RespositoriesService1.Modele;
+using DAB.Web.service;
 
 using Microsoft.AspNetCore.Mvc;
 
-using System.Security.Cryptography.X509Certificates;
+using System.Drawing;
 
 namespace DAB.Web.Controllers
  {
@@ -15,40 +15,49 @@ namespace DAB.Web.Controllers
   {
 
   IIngredientRepository _ingrediantRepo;
-  Iservice1 _service { get; set; }
+  Iservice _service { get; set; }
+  private readonly IMapper _mapper;
 
 
-  public IngrediantController(IIngredientRepository ingredientRepository, Iservice1 service)
+  public IngrediantController ( IIngredientRepository ingredientRepository, Iservice service, IMapper mapper )
    {
    this._ingrediantRepo = ingredientRepository;
    this._service = service;
+   this._mapper = mapper;
    }
 
   [HttpGet]
-  public ActionResult create()
+  public ActionResult create ()
    {
    return View();
    }
   [HttpPost]
-  public ActionResult create ( IngrediantViewModel ingrediantViewModele)
+  public ActionResult create ( IngredientViewModele ingredientViewModele )
    {
-   if(!ModelState.IsValid)
+   if ( !ModelState.IsValid )
     {
-    return BadRequest(ModelState);
+    return BadRequest( ModelState );
     }
    else
     {
-    _service.AddIngredient(ingrediantViewModele);
-    return View("Index");
+    Ingredient ingredient=_mapper.Map<Ingredient>( ingredientViewModele);
+
+    _service.AddIngredient( ingredient );
+    return View( "Index" );
 
     }
    }
-
+  /// <summary>
+  /// List ingrediant
+  /// </summary>
+  /// <returns></returns>
+  /// <exception cref="Exception"></exception>
   [HttpGet]
   public IActionResult Index ()
    {
 
-   ICollection<IngrediantViewModel> ingrediantList = _service.FindIngrediantViewModel();
+   List<IngredientViewModele> ingredientViewModelesList = new List<IngredientViewModele>();
+   ICollection<Ingredient> ingrediantList = _service.GetAllIngrediant();
 
    if ( ingrediantList == null )
     {
@@ -56,19 +65,51 @@ namespace DAB.Web.Controllers
     }
    else
     {
-    return View( ingrediantList );
+    foreach (var item in ingrediantList)
+     {
+     ingredientViewModelesList.Add(_mapper.Map<IngredientViewModele>( item ));
+     }
+
+    return View( ingredientViewModelesList.ToList() );
     }
 
    }
 
+  [HttpGet]
+  public ActionResult Edit ( int id )
+   {
+   if ( _service.FindIngredientById( id ) == null )
+    {
+    return BadRequest();
+    }
+   else
+    {
+    return View( _service.FindIngredientById( id ) );
+    }
+   }
+
+  [HttpPost]
+  public ActionResult Edit ( IngredientViewModele ingredientModele )
+   {
+   if ( !ModelState.IsValid )
+    {
+    return BadRequest();
+    }
+   else
+    {
+     return View( ingredientModele );
+    }
   
- 
-  public ActionResult DeleteIngrediant() 
+   }
+
+
+  public ActionResult DeleteIngrediant ()
    {
    return View();
    }
 
-  public ActionResult EditIngrediant() {
+  public ActionResult EditIngrediant ()
+   {
    return View();
    }
   }

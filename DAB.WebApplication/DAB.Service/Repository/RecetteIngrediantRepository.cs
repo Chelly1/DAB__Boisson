@@ -42,6 +42,7 @@ namespace DAB.Service.Repository
     {
     throw new NotFoundException( "recette ingrediant not found" );
     }
+
    return _dbContext.RecetteIngredients.Where( i => i.Ingredient.Equals( ingrediant ) ).ToList();
    }
 

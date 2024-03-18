@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -21,11 +21,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DBA.RespositoriesService1\DBA.RespositoriesService1.csproj" />
+    <ProjectReference Include="..\DAB.Domain\DAB.Domain.csproj" />
+    <ProjectReference Include="..\DAB.Service\DAB.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Controllers\NewFolder\" />
+    <Folder Include="Views\Boisson\" />
   </ItemGroup>
 
 </Project>

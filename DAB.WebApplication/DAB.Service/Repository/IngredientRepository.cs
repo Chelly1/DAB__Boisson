@@ -74,12 +74,12 @@ namespace DAB.Service.Repository
   /// <returns></returns>
   public Ingredient FindIngredientById ( int id )
    {
-   if ( _dbContext.Ingredients.Find( id ) == null )
+   if ( _dbContext.Ingredients.Where(i=>i.Id==id).FirstOrDefault() == null )
     {
     throw new NotFoundException( "ingrediant not found" );
     }
 
-   return _dbContext.Ingredients.Find( id );
+   return _dbContext.Ingredients.Where(i=>i.Id==id ).FirstOrDefault();
    }
 
   public ICollection<Ingredient> FindIngredizantByRecetteIngrediant ( RecetteIngredient recetteIngredient )

@@ -1,12 +1,12 @@
-﻿@model DBA.RespositoriesService1.Modele.IngrediantViewModel
+﻿@model DAB.Web.Models.IngredientViewModele
 
 @{
-    ViewData["Title"] = "Ajout INgrediant";
+    ViewData["Title"] = "create";
 }
 
 <h1>create</h1>
 
-<h4>IngrediantViewModele</h4>
+<h4>IngredientViewModele</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -35,8 +35,7 @@
 </div>
 
 <div>
- @Html.ActionLink( "Back to List", "Index" )
-    
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

@@ -11,9 +11,13 @@ namespace DAB.Web.Models
   public string Name { get; set; } = "";
 
   [Display(Name = "la recette du boisson")]
-  public virtual Recette Recette { get; set; }
+
+  public    string RecetteName { get; set; }
 
   public string Description { get; set; }
 
+  public int? Boisson_Stock { get; set; }
+
+  public RecetteViewModele RecetteViewModele { get; set;}
   }
  }
