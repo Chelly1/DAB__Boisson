@@ -9,8 +9,8 @@ namespace DAB.Web.service
   {
   #region Boisson
 
-  List<Boisson> getAllBoissson ();
-  ICollection<Boisson> getAllBoisson ();
+ 
+  ICollection<Boisson> FindAllBoisson ();
 
   void AddBoisson ( Boisson boisson );
 
@@ -34,23 +34,23 @@ namespace DAB.Web.service
 
   #region Ingrediant
 
-  ICollection<Ingredient> GetAllIngrediant ();
+  ICollection<Ingredient> FindAllIngrediant ();
 
   void AddIngredient ( Ingredient ingredient );
 
   Ingredient FindIngredientById ( int id );
 
-  double GetIngredientCost ( Ingredient ingredient );
+  double FindIngredientCost ( Ingredient ingredient );
 
   void SetIngredientCost ( Ingredient ingredient, double cost );
 
   ICollection<Recette> FindRecetteByIngrediant ( Ingredient ingredient );
 
-  #endregion Ingrediant
+        #endregion Ingrediant
 
 
-  #region  Recette
-
+        #region  Recette
+        List<Recette> FindAllRecette();
   Recette FindBoissonRcette ( Boisson boisson );
 
   void AddNewRecette ( Recette recette );
@@ -62,11 +62,12 @@ namespace DAB.Web.service
   Recette FindRecetteByName ( string name );
 
   List<Ingredient> FindIngredientByRecette(Recette recette );
+      
 
-  
 
+        List<Recette> GetAllRecetteAvecIngredients();
 
-  ICollection<RecetteIngredient> FindRecetteIngrediantByIngrediant ( Ingredient ingredient );
+        ICollection<RecetteIngredient> FindRecetteIngrediantByIngrediant ( Ingredient ingredient );
   #endregion
 
 

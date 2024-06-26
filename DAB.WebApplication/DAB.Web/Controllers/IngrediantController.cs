@@ -57,7 +57,7 @@ namespace DAB.Web.Controllers
    {
 
    List<IngredientViewModele> ingredientViewModelesList = new List<IngredientViewModele>();
-   ICollection<Ingredient> ingrediantList = _service.GetAllIngrediant();
+   ICollection<Ingredient> ingrediantList = _service.FindAllIngrediant();
 
    if ( ingrediantList == null )
     {

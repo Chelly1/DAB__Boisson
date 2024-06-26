@@ -13,6 +13,8 @@ namespace DAB.Domain.IEntities
   int Id { get; }
   string Name { get; set; }
   Boisson Boisson { get; set; }
-  ICollection<RecetteIngredient> RecetteIngredients { get; set; }
+        public string Instructions { get; set; }
+
+        ICollection<RecetteIngredient> RecetteIngredients { get; set; }
   }
  }

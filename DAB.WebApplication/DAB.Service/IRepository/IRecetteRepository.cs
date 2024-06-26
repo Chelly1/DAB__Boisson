@@ -10,6 +10,8 @@ namespace DAB.Service.IRepository
  {
  public interface IRecetteRepository
   {
+        List<Recette> GetAllRecetteWithIngredient();
+        List<Recette>? GetAll();
   void AddNewRecette(Recette recette);
 
   void DeleteRecette(Recette recette);

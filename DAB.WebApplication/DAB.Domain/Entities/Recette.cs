@@ -25,9 +25,9 @@ namespace DAB.Domain.Entities
   = new List<RecetteIngredient>();
 
   public virtual Boisson Boisson { get; set; }
+        public string Instructions { get; set; }
 
-
-  public Recette () { }
+        public Recette () { }
 
   public Recette ( string _name, string _description, ICollection<RecetteIngredient> recetteIngrediant  )
    {
