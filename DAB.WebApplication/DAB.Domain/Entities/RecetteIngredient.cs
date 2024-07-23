@@ -14,9 +14,8 @@ namespace DAB.Domain.Entities
   public RecetteIngredient ()
    {
    }
-   public RecetteIngredient ( int id, int recetteId, Recette recette, int ingredientId, Ingredient ingredient, string unite, double dose )
-   {
-   Id = id;
+   public RecetteIngredient (  int recetteId, Recette recette, int ingredientId, Ingredient ingredient, string unite, double dose )
+   {   
    RecetteId = recetteId;
    Recette = recette;
    IngredientId = ingredientId;
@@ -27,9 +26,9 @@ namespace DAB.Domain.Entities
 
   public int Id { get; set; }
    public int RecetteId { get; set; }
-   public virtual Recette Recette { get; set; }
+   public  Recette Recette { get; set; }
    public int IngredientId { get; set; }
-   public virtual Ingredient Ingredient { get; set; }
+   public  Ingredient Ingredient { get; set; }
    public string Unite { get; set ; }
    public double Dose { get; set; }
   }

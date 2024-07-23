@@ -11,6 +11,7 @@ namespace DAB.Service.IRepository
  {
  public interface IRecetteIngrediantRepository
   {
+        void AddRecetteIngrediant(RecetteIngredient recetteIngrediant);
   List<RecetteIngredient> GetAllRecetteIngrediant ();
 
   List<RecetteIngredient> GetRecetteIngrediantsByIngrediant ( Ingredient ingrediant );

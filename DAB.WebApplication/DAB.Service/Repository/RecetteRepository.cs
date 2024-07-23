@@ -31,7 +31,7 @@ namespace DAB.Service.Repository
             { throw new ArgumentNullException("Recette null pour etre ajouter"); }
 
             _dbContext.Recettes.Add(recette);
-            _dbContext.SaveChanges();
+            
 
         }
 
@@ -46,24 +46,21 @@ namespace DAB.Service.Repository
 
         public Recette FindRecetteById(int id)
         {
+            Recette recette = new Recette();
             if(id == null)
             {
                 throw new NotFoundException("id non renseigné");
             }
-            var recipe = _dbContext.Recettes
-                .Include(r => r.RecetteIngredients)
-                .ThenInclude(ri => ri.Ingredient)
-                .FirstOrDefault();
-
-            //if(recipe == null)
-            //{
+            if (_dbContext.Recettes.Where(rec => rec.Id == id).Count() > 0)
+            {
+                recette = _dbContext.Recettes.Where(rec=> rec.Id == id).FirstOrDefault();
+            }
+            
                 
-            //}
-            
-            
-           // {
-                return recipe;
-            //}
+            //var recipe = _dbContext.Recettes
+            //    .Include(r => r.RecetteIngredients)
+            //    .ThenInclude(ri => ri.Ingredient).ToList();
+            return recette;
         }
 
         public Recette FindRecetteByName(string name)
@@ -83,7 +80,11 @@ namespace DAB.Service.Repository
         }
         public ICollection<RecetteIngredient> FindRecetteIngrediantByRecette(Recette recette)
         {
-            throw new NotImplementedException();
+            if(recette == null)
+            {
+                throw new NotFoundException("recette not found {recette.Name}");
+            }
+            return _dbContext.RecetteIngredients.Where(t=>t.RecetteId== recette.Id).ToList();
         }
 
         public Boisson Find_BoissonByRecette(Recette recette)
@@ -105,10 +106,23 @@ namespace DAB.Service.Repository
             return recipes ;
         }
 
-        public ICollection<Ingredient> IngredByRecette(Recette recette)
+        public ICollection<Ingredient> IngredientByRecette(Recette recette)
         {
-            throw new NotImplementedException();
+            List<RecetteIngredient> recetteIngredient = FindRecetteIngrediantByRecette(recette).ToList();
+
+            List<Ingredient> ingredients = new List<Ingredient>();
+            if (recetteIngredient != null)
+            {
+                foreach (var ring in recetteIngredient)
+                {
+
+                    ingredients.Add(_dbContext.Ingredients.Where(ig => ig.RecetteIngredients.Equals(ring)).SingleOrDefault());
+                }
+
+            }
+            return ingredients.ToList();
         }
+    
 
         public void UpdateRecette(Recette recette)
         {
@@ -117,6 +131,7 @@ namespace DAB.Service.Repository
                 throw new DllNotFoundException("recette null");
             }
             _dbContext.Update(recette);
+            _dbContext.SaveChanges();
         }
     }
 }

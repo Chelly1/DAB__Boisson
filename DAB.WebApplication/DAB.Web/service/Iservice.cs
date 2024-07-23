@@ -64,14 +64,20 @@ namespace DAB.Web.service
   List<Ingredient> FindIngredientByRecette(Recette recette );
       
 
-
+        void UpdateRecette(Recette recette );
         List<Recette> GetAllRecetteAvecIngredients();
 
         ICollection<RecetteIngredient> FindRecetteIngrediantByIngrediant ( Ingredient ingredient );
-  #endregion
+        #endregion
+        void AddRecetteIngredient(RecetteIngredient recetteIngredient);
+
+        List<Ingredient> FrindIngredientByRecette(Recette recette);
 
 
+        void CreateRecette(Recette recette, int[] ingredientIds,
+                                     double[] quantities, string[] units);
+        ICollection<RecetteIngredient> FindAllRecetteIngrediant();
+        ICollection<RecetteIngredient> FindRecetteIngrediantByRecette(Recette recette);
 
-
-  }
- }
+    }
+}

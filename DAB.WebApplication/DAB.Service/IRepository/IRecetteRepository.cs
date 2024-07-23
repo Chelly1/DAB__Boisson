@@ -10,6 +10,7 @@ namespace DAB.Service.IRepository
  {
  public interface IRecetteRepository
   {
+       
         List<Recette> GetAllRecetteWithIngredient();
         List<Recette>? GetAll();
   void AddNewRecette(Recette recette);
@@ -22,7 +23,7 @@ namespace DAB.Service.IRepository
   
   Boisson Find_BoissonByRecette ( Recette recette );
 
-  ICollection<Ingredient> IngredByRecette ( Recette recette );
+  ICollection<Ingredient> IngredientByRecette( Recette recette );
 
   ICollection<RecetteIngredient> FindRecetteIngrediantByRecette ( Recette recette );
 

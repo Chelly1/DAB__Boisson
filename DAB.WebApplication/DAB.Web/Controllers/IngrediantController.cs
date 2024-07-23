@@ -50,7 +50,7 @@ namespace DAB.Web.Controllers
   /// <summary>
   /// List ingrediant
   /// </summary>
-  /// <returns></returns>
+  /// <returns><list type="od ingrediant"</returns>
   /// <exception cref="Exception"></exception>
   [HttpGet]
   public IActionResult Index ()

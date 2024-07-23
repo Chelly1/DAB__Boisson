@@ -37,6 +37,7 @@ namespace DAB.Web.service
         {
 
             var mappedBoisson = _mapper.Map<Boisson>(boisson);
+
             _boissonRepo.AddBoisson(mappedBoisson);
         }
 
@@ -132,28 +133,29 @@ namespace DAB.Web.service
         public List<Ingredient> FindIngredientByRecette(Recette recette)
         {
             List<Ingredient> ingredients = new List<Ingredient>();
+            List<RecetteIngredient> recetteIngredients = new List<RecetteIngredient>();
             if (recette == null)
             {
                 throw new NotFoundException("recette not specifier");
             }
             else
             {
-                foreach (var ing in recette.RecetteIngredients)
-                {
-                    ingredients.Add(ing.Ingredient);
-                }
-                if (ingredients.Count == 0)
-                {
-                    throw new Exception("ingredient absent");
-                }
+                recetteIngredients = _recetteIngrediantRepository.GetRecetteIngrediantsByRecette(recette).ToList();
 
-                return ingredients;
             }
+            foreach (var ing in recetteIngredients)
+            {
+                ingredients.Add(ing.Ingredient);
+            }
+            return ingredients;
         }
 
         public Recette FindRecetteById(int id)
         {
-            return _recetteRepository.FindRecetteById(id);
+            Recette recette =  _recetteRepository.FindRecetteById(id);
+             recette.RecetteIngredients = _recetteIngrediantRepository.GetRecetteIngrediantsByRecette(recette);
+            return recette;
+
         }
 
         public ICollection<Recette> FindRecetteByIngrediant(Ingredient ingredient)
@@ -254,7 +256,91 @@ namespace DAB.Web.service
             return _recetteRepository.GetAllRecetteWithIngredient().ToList();
         }
 
+        public void UpdateRecette(Recette recette)
+        {
+            _recetteRepository.UpdateRecette(recette);
+        }
+
+        public ICollection<Ingredient> FindIngrediantByRecette(Recette recette)
+        {
+            if (recette == null)
+            {
+                throw new NotFoundException("recette null");
+            }
+
+            List<Ingredient> IngredientsList = new List<Ingredient>();
+            List<RecetteIngredient> recetteIngredien =
+                    _recetteIngrediantRepository.GetRecetteIngrediantsByRecette(recette).ToList();
+
+            if (recetteIngredien != null)
+            {
+                foreach (var ring in recetteIngredien)
+                {
+                    IngredientsList.Add(ring.Ingredient);
+                }
+
+            }
+            return IngredientsList.ToList();
+
+        }
+
+        public void AddRecetteIngredient(RecetteIngredient recetteIngredient)
+        {
+            if (recetteIngredient != null)
+            {
+                _recetteIngrediantRepository.AddRecetteIngrediant(recetteIngredient);
+            }
+        }
+
+        public List<Ingredient> FrindIngredientByRecette(Recette recette)
+        {
+            List<RecetteIngredient> recetteIngredientList = _recetteIngrediantRepository.GetRecetteIngrediantsByRecette(recette).ToList();
 
 
+            List<Ingredient> ingredients = new List<Ingredient>();
+            foreach (var ri in recetteIngredientList)
+            {
+                ingredients.Add(ri.Ingredient);
+            }
+            return ingredients;
+        }
+
+
+        //----
+        public void CreateRecette(Recette recette, int[] ingredientIds,
+                                     double[] quantities, string[] units)
+        {
+
+           
+
+            for (int i = 0; i < ingredientIds.Length; i++)
+            {
+
+                RecetteIngredient recetteIngrediant = new RecetteIngredient
+                {
+                    Recette = recette,
+                    Ingredient = FindIngredientById(ingredientIds[i]),
+                    RecetteId = recette.Id,
+                    IngredientId = ingredientIds[i],
+                    Dose = quantities[i],
+                    Unite = "ee" //units[i]
+                };
+                AddRecetteIngredient(recetteIngrediant);
+                recette.RecetteIngredients.Add(recetteIngrediant);
+                AddNewRecette(recette);
+            }
+        }
+
+        public ICollection<RecetteIngredient> FindAllRecetteIngrediant()
+        {
+           return _recetteIngrediantRepository.GetAllRecetteIngrediant().ToList();
+        }
+
+        public ICollection<RecetteIngredient> FindRecetteIngrediantByRecette(Recette recette)
+        {
+           return _recetteIngrediantRepository.GetRecetteIngrediantsByRecette(recette).ToList();
+
+        }
     }
+
 }

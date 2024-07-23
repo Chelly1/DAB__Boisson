@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Web.WebPages;
 
 namespace DAB.Web.Models
  {
@@ -14,9 +15,16 @@ namespace DAB.Web.Models
         [Required]
         public double Price { get; set; }
         [Required]
-        public string Unit { get; set; }
-        
-        public ICollection<RecetteIngredientModele> recetteIngredientModeles { get; set;}
+        public string Unit { get; set; } = "";
 
+       public IngredientViewModele()
+        { }
+        public IngredientViewModele(string name, string description, double price, string unit )
+        {
+            this.Name = name;
+            Description = description;
+            Price = price;
+            Unit = unit;
+        }
     }
  }

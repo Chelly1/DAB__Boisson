@@ -8,33 +8,34 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DAB.Domain.Entities
- {
- public class Ingredient : IIngredient
-  {
-  [Key]
-  public int Id { get; }
+{
+    public class Ingredient : IIngredient
+    {
+        [Key]
+        public int Id { get; }
 
-  public string Name { get; set; } = "IngrediantName";
+        public string Name { get; set; } = "IngrediantName";
 
-  public string Description { get; set; } = "description";
+        public string Description { get; set; } = "description";
 
-  public Double Price { get; set; }
-  
-  virtual public ICollection<RecetteIngredient> RecetteIngredients { get; set; }
+        public Double Price { get; set; }
 
-  public Ingredient() { }
-  public Ingredient(string name, string description, double price) 
-   {
-   this.Name = name;
-   this.Description = description;
-   this.Price = price;
-   }
+        public virtual ICollection<RecetteIngredient> RecetteIngredients { get; set; }
 
-
-  //public IList<RecetteIngredient> recetteIngredients { get; set; }
+        public Ingredient() { }
+        public Ingredient(string name, string description, double price, ICollection<RecetteIngredient> recetteIngredients)
+        {
+            this.Name = name;
+            this.Description = description;
+            this.Price = price;
+            this.RecetteIngredients = recetteIngredients;
+        }
 
 
+        //public IList<RecetteIngredient> recetteIngredients { get; set; }
 
-  //public  IList<> RecettesIngrediant { get; set; }
-  }
- }
+
+
+        //public  IList<> RecettesIngrediant { get; set; }
+    }
+}

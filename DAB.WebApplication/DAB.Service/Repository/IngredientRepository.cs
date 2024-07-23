@@ -19,6 +19,7 @@ namespace DAB.Service.Repository
    {
    if ( ingredient != null )
     _dbContext.Ingredients.Add( ingredient );
+            _dbContext.SaveChanges();
 
    }
   /// <summary>

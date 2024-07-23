@@ -3,7 +3,6 @@
 using DAB.Domain.Entities;
 using DAB.Web.Models;
 
-using Microsoft.Build.Framework;
 
 using System.Data;
 namespace DAB.Web.AutoMap.Helper
@@ -27,9 +26,6 @@ namespace DAB.Web.AutoMap.Helper
 
              .ForMember(dest => dest.Description,
                 opt => opt.MapFrom(src => $"{src.Description}")
-                )
-             .ForMember(dest => dest.RecetteIngredients,
-             opt => opt.MapFrom(src => src.recetteIngredientModeles)
        );
 
             CreateMap<Ingredient, IngredientViewModele>()
@@ -41,10 +37,7 @@ namespace DAB.Web.AutoMap.Helper
              opt => opt.MapFrom(src => src.Price)
              )
              .ForMember(dest => dest.Description,
-             opt => opt.MapFrom(src => src.Description)
-             )
-             .ForMember(dest => dest.recetteIngredientModeles,
-             opt => opt.MapFrom(src => $"{src.RecetteIngredients}")
+             opt => opt.MapFrom(src => $"{src.Description}")
              );
 
 
@@ -91,9 +84,11 @@ namespace DAB.Web.AutoMap.Helper
                 .ForMember(dest => dest.Instructions,
                 opt => opt.MapFrom(src => src.Instructions)
                 )
-                .ForMember(dest => dest.recetteIngredients,
+                 .ForMember(dest => dest.recetteIngredients,
                 opt => opt.MapFrom(src => src.RecetteIngredients)
-                );
+
+
+                ) ;
 
 
             CreateMap<RecetteViewModele, Recette>()
